@@ -40,6 +40,10 @@
   ***`pip install psycopg2, configparser`***
 * psycopg2
 
+#### (OPTIONAL) Install Jupyter Notebook through Anaconda
+* Install [Anaconda](https://www.anaconda.com/)
+* Open Anaconda _Navigator to Launch Jupyter Notebook_
+
 ### Clone GitHub Respoistory
 Run this command to Clone the necessary files into your own GiHub Repositry:
 `git clone https://github.com/jm2826/jm2826-UDacity-Data-Engineering-with-AWS.git` 
@@ -59,6 +63,11 @@ Amazon Redshift database and create the Extract Transform and Load Pipeline that
 2. COPY data from S3 source that are in 3NF.
 3. INSERT Copied S3 DATA into the Redshift Staging Tables
 4. INSERT data into Fact and Dimension tables.
+
+`Joel_Data_Warehouse_Project_testfile.ipynb`
+1. Open this file in Jupyter Notebook
+2. Run each cell in order from top to bottom.
+3. Results will display the count of each table we created
 
 ## License
 The content of this repository is licensed under a
