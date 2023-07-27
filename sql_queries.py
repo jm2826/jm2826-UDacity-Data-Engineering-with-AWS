@@ -2,7 +2,7 @@ import configparser
 
 # CONFIG
 config = configparser.ConfigParser()
-config.read("dwh.cfg")
+config.read("project_dwh.cfg")
 
 # DROP TABLES
 
@@ -51,45 +51,26 @@ staging_songs_table_create = ("""
         year int );
 """)
 
-
-
-
 # Fact Table for songplays
-'''
+
 songplay_table_create = ("""
     CREATE TABLE songplay (
-        songplay_id int IDENTITY(0,1) PRIMARY KEY,
-        start_time timestamp,
-        userid int,
-        level varchar,
-        song_id varchar,
-        artist_id varchar,
-        sessionid int,
-        location varchar,
-        userAgent varchar);
-""")
-'''
-songplay_table_create = ("""
-    CREATE TABLE songplay (
-        songplay_id int IDENTITY(0,1) PRIMARY KEY,
+        songplay_id int IDENTITY(0,1) PRIMARY KEY DISTKEY,
         start_time timestamp REFERENCES time(start_time),
         userid int REFERENCES users(userid),
         level varchar,
-        song_id int REFERENCES song(song_id),
+        song_id int REFERENCES song(song_id) SORTKEY,
         artist_id int REFERENCES artist(artist_id),
         sessionid int,
         location varchar,
         userAgent varchar);
 """)
 
-
-
-
-
 # Dimensional Tables Describing Songplays
+
 users_table_create = ("""
     CREATE TABLE users (
-        userid int PRIMARY KEY,
+        userid int PRIMARY KEY DISTKEY SORTKEY,
         firstName varchar,
         lastName varchar,
         gender varchar,
@@ -98,7 +79,7 @@ users_table_create = ("""
 
 song_table_create = ("""
     CREATE TABLE song (
-        song_id varchar PRIMARY KEY,
+        song_id varchar PRIMARY KEY DISTKEY SORTKEY,
         title text,
         artist_id varchar,
         year int,
@@ -107,7 +88,7 @@ song_table_create = ("""
 
 artist_table_create = ("""
     CREATE TABLE artist (
-        artist_id varchar PRIMARY KEY,
+        artist_id varchar PRIMARY KEY DISTKEY SORTKEY,
         artist_name text,
         artist_location text,
         artist_lattitude float,
@@ -116,7 +97,7 @@ artist_table_create = ("""
 
 time_table_create = ("""
     CREATE TABLE time (
-        start_time timestamp PRIMARY KEY,
+        start_time timestamp PRIMARY KEY DISTKEY SORTKEY,
         hour smallint NOT NULL,
         day smallint NOT NULL,
         week smallint NOT NULL,
@@ -142,30 +123,8 @@ staging_songs_copy = ("""
     region 'us-west-2';
 """).format(config['S3']['SONG_DATA'], config['IAM_ROLE']['ARN'])
 
-
-
-
-
-
 # FINAL TABLES
-'''
-songplay_table_insert = ("""
-    INSERT INTO songplay (start_time, userid, level, song_id, artist_id, sessionid, location, userAgent)
-    SELECT DISTINCT
-        TIMESTAMP 'epoch' + (e.ts/1000) * INTERVAL '1 second' AS start_time,
-        e.userid,
-        e.level,
-        s.song_id,
-        s.artist_id,
-        e.sessionid,
-        e.location,
-        e.userAgent
-    FROM staging_events e
-    JOIN staging_songs s
-    ON e.artist = s.artist_name AND e.song = s.title
-    WHERE e.page = 'NextSong';        
-""")
-'''
+
 songplay_table_insert = ("""
     INSERT INTO songplay (level, sessionid, location, userAgent)
     SELECT DISTINCT
@@ -178,13 +137,6 @@ songplay_table_insert = ("""
     ON e.artist = s.artist_name AND e.song = s.title
     WHERE e.page = 'NextSong';        
 """)
-
-
-
-
-
-
-
 
 users_table_insert = ("""
     INSERT INTO users (userid, firstName, lastName, gender, level)
