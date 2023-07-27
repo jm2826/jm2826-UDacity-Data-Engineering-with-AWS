@@ -24,9 +24,9 @@
      {"num_songs": 1, "artist_id": "ARJIE2Y1187B994AB7", "artist_latitude": null, "artist_longitude": null, "artist_location": "", "artist_name": "Line Renaud", "song_id": "SOUPIRU12A6D4FA1E1", "title": "Der Kleine Dompfaff", "duration": 152.92036, "year": 0}
  ```
 * Log data: ***`s3://udacity-dend/log_data`*** Snapshot of Data below:
-    ![Alt Text](log_data.png)
+    ![Alt Text](log_data.jpg)
 * Metadata: ***`s3://udacity-dend/log_json_path.json`*** Snapshot of Data below:
-    ![Alt Text](log_json.png)
+    ![Alt Text](log_json.jpg)
 
 #### _Create Amazon Redshift Cluster with 8 Nodes_
 * Navigate to [Amazon Redshift Console](https://console.aws.amazon.com/redshift/) 
