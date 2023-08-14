@@ -1,0 +1,7 @@
+Broken DAG: [/home/workspace/airflow/dags/cd0031-automate-data-pipelines/project/starter/final_project.py] Traceback (most recent call last):
+  File "/usr/local/lib/python3.7/dist-packages/airflow/models/baseoperator.py", line 390, in apply_defaults
+    result = func(self, **kwargs, default_args=default_args)
+  File "/usr/local/lib/python3.7/dist-packages/airflow/models/baseoperator.py", line 744, in __init__
+    f"Invalid arguments were passed to {self.__class__.__name__} (task_id: {task_id}). "
+airflow.exceptions.AirflowException: Invalid arguments were passed to StageToRedshiftOperator (task_id: Stage_events). Invalid arguments were:
+**kwargs: {'aws_credentials': <airflow.providers.amazon.aws.hooks.s3.S3Hook object at 0x7fe2c5cef400>, 's3_bucket': 'joel-airflow', 's3_prefix': 'log-data'}
