@@ -25,9 +25,9 @@ import json
 default_args = {
     'owner': 'Sparkify',
     'Depends_on_past': True,
-    'start_date': pendulum.now(), #datetime(2023, 8, 13),
-    #'retries': 3,
-    #'retry_delay': timedelta(minutes=5),
+    'start_date': datetime(2023, 8, 13),
+    'retries': 3,
+    'retry_delay': timedelta(minutes=5),
     'email_on_retry': False,
     'catchup' : False
 }
